@@ -67,7 +67,7 @@ const createPhoto = () => {
       url: `photos/${id}.jpg`,
       description: DESCRIPTION[getRandomNumber(0, DESCRIPTION.length - 1)],
       likes: getRandomNumber(MIN_LIKES, MAX_LIKES),
-      comments: similarComments[getRandomNumber(0, similarComments.length - 1)],
+      comments: similarComments.slice(getRandomNumber(0, similarComments.length - 1)),
     });
   }
   return descriptions;
