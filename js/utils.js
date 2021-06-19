@@ -6,6 +6,10 @@ function checkСommentLength(comment, maxLength) {
 
 checkСommentLength('textarea', MAX_COMMENT_LENGTH);
 
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+const isEnterEvent = (evt) => evt.key === 'Enter';
+
 // пример функции взят с https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomNumber(min, max) {
   if (min >= 0 && min < max) {
@@ -17,4 +21,4 @@ function getRandomNumber(min, max) {
 
 getRandomNumber(0, 10);
 
-export {checkСommentLength, getRandomNumber};
+export {checkСommentLength, getRandomNumber, isEscEvent, isEnterEvent};
