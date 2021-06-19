@@ -9,8 +9,8 @@ const similarPictures = createPhoto();
 
 const similarPicturesFragment = document.createDocumentFragment();
 
-const renderPictures = () => {
-  similarPictures.forEach((picture) => {
+const renderPictures = (pictures) => {
+  pictures.forEach((picture) => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = picture.url;
     pictureElement.querySelector('.picture__comments').textContent = picture.comments.length;
