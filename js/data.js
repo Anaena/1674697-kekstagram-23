@@ -1,5 +1,9 @@
 import { getRandomNumber } from './utils.js';
 
+const SIMILAR_DESCRIPTION_NUMBER = 25;
+const MIN_LIKES = 15;
+const MAX_LIKES = 200;
+
 const NAMES = [
   'Ираид',
   'Валентин',
@@ -52,10 +56,6 @@ const createComment = () => ({
   message: MESSAGE[getRandomNumber(0, MESSAGE.length - 1)],
   name: `${NAMES[getRandomNumber(0, NAMES.length - 1)]} ${SURNAMES[getRandomNumber(0, SURNAMES.length - 1)]}`,
 });
-
-const SIMILAR_DESCRIPTION_NUMBER = 25;
-const MIN_LIKES = 15;
-const MAX_LIKES = 200;
 
 const similarComments = new Array(SIMILAR_DESCRIPTION_NUMBER).fill(null).map(createComment);
 

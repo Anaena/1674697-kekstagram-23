@@ -26,4 +26,8 @@ const renderPictures = (pictures) => {
 
 renderPictures(similarPictures);
 
-export {similarPictures, similarPicturesFragment, renderPictures, otherUsersPicturesList };
+const clearRenderPictures = () => {
+  similarPicturesFragment.innerHTML = '';
+};
+
+export {similarPictures, similarPicturesFragment, renderPictures, otherUsersPicturesList, clearRenderPictures  };

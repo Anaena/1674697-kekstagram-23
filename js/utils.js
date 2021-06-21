@@ -21,4 +21,4 @@ function getRandomNumber(min, max) {
 
 getRandomNumber(0, 10);
 
-export {checkСommentLength, getRandomNumber, isEscEvent, isEnterEvent};
+export {checkСommentLength, getRandomNumber, isEscEvent, isEnterEvent, MAX_COMMENT_LENGTH};

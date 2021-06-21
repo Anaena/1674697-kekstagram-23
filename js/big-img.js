@@ -1,4 +1,7 @@
 import { isEscEvent } from './utils.js';
+import { clearRenderPictures } from './thumbnail-img.js';
+import { closeUserModal } from './user-form.js';
+
 const AVATAR_SIZE = 35;
 const pictureCloseElement = document.querySelector('.big-picture__cancel');
 const bigPicture = document.querySelector('.big-picture');
@@ -34,6 +37,7 @@ const onPopupEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
     closePictureModal();
+    closeUserModal();
   }
 };
 
@@ -48,6 +52,7 @@ const openPictureModal = (picture) => {
   socialCommentCount.classList.add('hidden');
   commentsLoader.classList.add('hidden');
   pageBody.classList.add('modal-open');
+
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
@@ -56,6 +61,8 @@ const closePictureModal = () => {
   socialCommentCount.classList.remove('hidden');
   commentsLoader.classList.remove('hidden');
   pageBody.classList.remove('modal-open');
+  clearRenderPictures();
+
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
@@ -63,4 +70,4 @@ pictureCloseElement.addEventListener('click', () => {
   closePictureModal();
 });
 
-export { pictureCloseElement, openPictureModal };
+export { pictureCloseElement, openPictureModal, onPopupEscKeydown, pageBody };
