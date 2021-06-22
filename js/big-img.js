@@ -1,6 +1,4 @@
-import { isEscEvent } from './utils.js';
-import { clearRenderPictures } from './thumbnail-img.js';
-import { closeUserModal } from './user-form.js';
+import { onPopupEscKeydown } from './close-keydown.js';
 
 const AVATAR_SIZE = 35;
 const pictureCloseElement = document.querySelector('.big-picture__cancel');
@@ -33,14 +31,6 @@ const renderComments = (commentList, { avatar, name, message }) => {
   commentList.appendChild(commentBlock);
 };
 
-const onPopupEscKeydown = (evt) => {
-  if (isEscEvent(evt)) {
-    evt.preventDefault();
-    closePictureModal();
-    closeUserModal();
-  }
-};
-
 const openPictureModal = (picture) => {
   bigPictureImg.src = picture.url;
   likesCount.textContent = picture.likes;
@@ -52,7 +42,6 @@ const openPictureModal = (picture) => {
   socialCommentCount.classList.add('hidden');
   commentsLoader.classList.add('hidden');
   pageBody.classList.add('modal-open');
-
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
@@ -61,7 +50,6 @@ const closePictureModal = () => {
   socialCommentCount.classList.remove('hidden');
   commentsLoader.classList.remove('hidden');
   pageBody.classList.remove('modal-open');
-  clearRenderPictures();
 
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
@@ -70,4 +58,4 @@ pictureCloseElement.addEventListener('click', () => {
   closePictureModal();
 });
 
-export { pictureCloseElement, openPictureModal, onPopupEscKeydown, pageBody };
+export { pictureCloseElement, openPictureModal, closePictureModal, pageBody };

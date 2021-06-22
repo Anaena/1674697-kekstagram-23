@@ -1,34 +1,33 @@
-import { onPopupEscKeydown, pageBody } from './big-img.js';
 import { MAX_COMMENT_LENGTH } from './utils.js';
+import { pageBody } from './big-img.js';
+import { onPopupEscKeydown } from './close-keydown.js';
 
+const ERROE_TEXT_VALIDATE = `Хэштег начинается со знака "#" и включать в себя только буквы и цифры.
+          Количетво символов после "#" более 19. Хэш-теги пишутся через пробел.`;
+const ERROR_NO_REPEAT = 'Хэштеги не должны повторяться';
+const MAX_HASHTAGS_COUNT = 5;
 const userModalElement = document.querySelector('.img-upload__overlay');
 const userModalOpenElement = document.querySelector('#upload-file');
 const userModalCloseElement = userModalElement.querySelector('#upload-cancel');
-const userHashtagsInput = document.querySelector('.text__hashtags');
+const userHashtags = document.querySelector('.text__hashtags');
 const userDescription = document.querySelector('.text__description');
 const hashtagReg = /^#[A-Za-zА-ЯЁёа-я0-9]{1,19}$/;
 
 const openUserModal = () => {
   userModalElement.classList.remove('hidden');
   pageBody.classList.add('modal-open');
-
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
 const closeUserModal = () => {
   userModalElement.classList.add('hidden');
   pageBody.classList.remove('modal-open');
-
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
-userModalOpenElement.addEventListener('click', () => {
-  openUserModal();
-});
+userModalOpenElement.addEventListener('click', openUserModal);
 
-userModalCloseElement.addEventListener('click', () => {
-  closeUserModal();
-});
+userModalCloseElement.addEventListener('click', closeUserModal);
 
 userDescription.addEventListener('input', () => {
   const valueLength = userDescription.value.length;
@@ -44,29 +43,35 @@ userDescription.addEventListener('input', () => {
   userDescription.reportValidity();
 });
 
+const validationFormHashtag = (evt) => {
 
-userHashtagsInput.addEventListener('input', () => {
-  const hashtags = userHashtagsInput.split(' ');
+  if (userHashtags.value !== '') {
+    const hashtags = userHashtags.value.toLowerCase().trim().split(' ');
 
-  if (hashtags.length > 5) {
-    hashtags.classList.add('text__invalid');
-    hashtags.setCustomValidity('Указано больше 5 хэш-тегов');
-  }
-
-  const uniqueHashTags = [];
-  for (let i = 0; i < hashtags.length; i++) {
-    if (!hashtags[i].match(hashtagReg)) {
-      userHashtagsInput.classList.add('text__invalid');
-      userHashtagsInput.setCustomValidity(`Хэш-тег ${hashtags[i]} не прошёл регулярку`);
-    } else if (uniqueHashTags.includes(hashtags[i].toLowerCase())) {
-      userHashtagsInput.classList.add('text__invalid');
-      userHashtagsInput.setCustomValidity(`Хэш-тег ${hashtags[i]} встретился больше одного раза`);
-    } else {
-      userHashtagsInput.classList.remove('text__invalid');
-      userHashtagsInput.setCustomValidity('');
+    hashtags.forEach((hashtag, i) => {
+      if (!hashtagReg.test(hashtag)) {
+        userHashtags.classList.add('text__invalid');
+        userHashtags.setCustomValidity(ERROE_TEXT_VALIDATE);
+        evt.preventDefault();
+      } else if (hashtags.indexOf(hashtag) !== i) {
+        userHashtags.classList.add('text__invalid');
+        userHashtags.setCustomValidity(ERROR_NO_REPEAT);
+        evt.preventDefault();
+      } else {
+        userHashtags.classList.remove('text__invalid');
+        userHashtags.setCustomValidity('');
+      }
+      userHashtags.reportValidity();
+    });
+    if (hashtags.length > MAX_HASHTAGS_COUNT) {
+      userHashtags.setCustomValidity(`Количество хэштегов должно быть не более ${MAX_HASHTAGS_COUNT}`);
     }
-    userHashtagsInput.reportValidity();
+  } else {
+    userHashtags.classList.remove('text__invalid');
+    userHashtags.setCustomValidity('');
   }
-});
+};
+
+userHashtags.addEventListener('input', validationFormHashtag);
 
 export { closeUserModal };
