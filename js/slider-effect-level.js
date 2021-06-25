@@ -8,60 +8,9 @@ let currentEffect;
 
 const effectNames = {
   chrome: {
-    name: 'grayscale',
-    min: 0,
-    max: 1,
-    step: 0.1,
-  },
-  sepia: {
-    name: 'sepia',
-    min: 0,
-    max: 1,
-    step: 0.1,
-  },
-  marvin: {
-    name: 'invert',
-    min: 0,
-    max: 100,
-    step: 1,
-    unit: '%',
-  },
-  phobos: {
-    name: 'blur',
-    min: 0,
-    max: 3,
-    step: 0.1,
-    unit: 'px',
-  },
-  heat: {
-    name: 'brightness',
-    min: 1,
-    max: 3,
-    step: 0.1,
-  },
-};
-
-const turnEffectLevel = (effectName) => {
-  const {
-    min,
-    max,
-    step,
-    name: filterName,
-    unit = '',
-  } = effectNames[effectName];
-
-  if (sliderElement.noUiSlider) {
-    sliderElement.noUiSlider.off();
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min,
-        max,
-      },
-      start: max,
-      step,
-    });
-  } else {
-    noUiSlider.create(sliderElement, {
+    filterName: 'grayscale',
+    unit: '',
+    options: {
       range: {
         min: 0,
         max: 1,
@@ -69,16 +18,74 @@ const turnEffectLevel = (effectName) => {
       start: 1,
       step: 0.1,
       connect: 'lower',
-      format: {
-        to: (value) => {
-          if (Number.isInteger(value)) {
-            return value.toFixed(0);
-          }
-          return value.toFixed(1);
-        },
-        from: (value) => parseFloat(value),
+    },
+  },
+  sepia: {
+    filterName: 'sepia',
+    unit: '',
+    options: {
+      range: {
+        min: 0,
+        max: 1,
       },
-    });
+      start: 1,
+      step: 0.1,
+      connect: 'lower',
+    },
+  },
+  marvin: {
+    filterName: 'invert',
+    unit: '%',
+    options: {
+      range: {
+        min: 0,
+        max: 100,
+      },
+      start: 100,
+      step: 1,
+      connect: 'lower',
+    },
+  },
+  phobos: {
+    filterName: 'blur',
+    unit: 'px',
+    options: {
+      range: {
+        min: 0,
+        max: 3,
+      },
+      start: 3,
+      step: 0.1,
+      connect: 'lower',
+    },
+  },
+  heat: {
+    filterName: 'brightness',
+    unit: '',
+    options: {
+      range: {
+        min: 1,
+        max: 3,
+      },
+      start: 3,
+      step: 0.1,
+      connect: 'lower',
+    },
+  },
+};
+
+const turnEffectLevel = (effectName) => {
+  const {
+    options,
+    filterName,
+    unit,
+  } = effectNames[effectName];
+
+  if (sliderElement.noUiSlider) {
+    sliderElement.noUiSlider.off();
+    sliderElement.noUiSlider.updateOptions(options);
+  } else {
+    noUiSlider.create(sliderElement, options);
   }
 
   sliderElement.noUiSlider.on('update', (_, handle, unencoded) => {
