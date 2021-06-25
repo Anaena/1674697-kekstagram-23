@@ -1416,3 +1416,7 @@ main {
 .hidden {
   display: none;
 }
+
+.text__invalid {
+  outline: 2px solid#e90000;
+}

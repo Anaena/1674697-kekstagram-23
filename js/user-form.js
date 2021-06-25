@@ -1,6 +1,7 @@
 import { MAX_COMMENT_LENGTH } from './utils.js';
 import { pageBody } from './big-img.js';
 import { onPopupEscKeydown } from './close-keydown.js';
+import { setScale, CURRENT_CONTROL_VALUE } from './scale-control.js';
 
 const ERROE_TEXT_VALIDATE = `Хэштег начинается со знака "#" и включать в себя только буквы и цифры.
           Количетво символов после "#" более 19. Хэш-теги пишутся через пробел.`;
@@ -9,12 +10,13 @@ const MAX_HASHTAGS_COUNT = 5;
 const userModalElement = document.querySelector('.img-upload__overlay');
 const userModalOpenElement = document.querySelector('#upload-file');
 const userModalCloseElement = userModalElement.querySelector('#upload-cancel');
-const userHashtags = document.querySelector('.text__hashtags');
-const userDescription = document.querySelector('.text__description');
+const userHashtags = userModalElement.querySelector('.text__hashtags');
+const userDescription = userModalElement.querySelector('.text__description');
 const hashtagReg = /^#[A-Za-zА-ЯЁёа-я0-9]{1,19}$/;
 
 const openUserModal = () => {
   userModalElement.classList.remove('hidden');
+  setScale(CURRENT_CONTROL_VALUE);
   pageBody.classList.add('modal-open');
   document.addEventListener('keydown', onPopupEscKeydown);
 };
@@ -43,28 +45,34 @@ userDescription.addEventListener('input', () => {
   userDescription.reportValidity();
 });
 
-const validationFormHashtag = (evt) => {
+const setElementError = (element, errorMessage) => {
+  if (errorMessage) {
+    element.classList.add('text__invalid');
+  } else {
+    element.classList.remove('text__invalid');
+  }
+  element.setCustomValidity(errorMessage);
+};
 
-  if (userHashtags.value !== '') {
-    const hashtags = userHashtags.value.toLowerCase().trim().split(' ');
+const validationFormHashtag = (evt) => {
+  const hashtagsValue = userHashtags.value.toLowerCase().trim();
+  if (hashtagsValue !== '') {
+    const hashtags = hashtagsValue.split(' ');
 
     hashtags.forEach((hashtag, i) => {
       if (!hashtagReg.test(hashtag)) {
-        userHashtags.classList.add('text__invalid');
-        userHashtags.setCustomValidity(ERROE_TEXT_VALIDATE);
+        setElementError(userHashtags, ERROE_TEXT_VALIDATE);
         evt.preventDefault();
       } else if (hashtags.indexOf(hashtag) !== i) {
-        userHashtags.classList.add('text__invalid');
-        userHashtags.setCustomValidity(ERROR_NO_REPEAT);
+        setElementError(userHashtags, ERROR_NO_REPEAT);
         evt.preventDefault();
       } else {
-        userHashtags.classList.remove('text__invalid');
         userHashtags.setCustomValidity('');
       }
       userHashtags.reportValidity();
     });
     if (hashtags.length > MAX_HASHTAGS_COUNT) {
-      userHashtags.setCustomValidity(`Количество хэштегов должно быть не более ${MAX_HASHTAGS_COUNT}`);
+      setElementError(userHashtags,`Количество хэштегов должно быть не более ${MAX_HASHTAGS_COUNT}`);
     }
   } else {
     userHashtags.classList.remove('text__invalid');
@@ -74,4 +82,4 @@ const validationFormHashtag = (evt) => {
 
 userHashtags.addEventListener('input', validationFormHashtag);
 
-export { closeUserModal };
+export { closeUserModal, userModalElement };

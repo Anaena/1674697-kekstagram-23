@@ -28,7 +28,7 @@ const SURNAMES = [
   'Саянков',
 ];
 
-const MESSAGE = [
+const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -37,7 +37,7 @@ const MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const DESCRIPTION = [
+const DESCRIPTIONS = [
   'На кити щербацкой, который устраивала его содействовало: его сторонником.',
   'Приехал на свободу пред ним, и землевладельца, которые он будет женат.',
   'Сказал, стояло на свободу пред ним, и потому.',
@@ -53,7 +53,7 @@ const DESCRIPTION = [
 const createComment = () => ({
   id: getRandomNumber(1, 200),
   avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
-  message: MESSAGE[getRandomNumber(0, MESSAGE.length - 1)],
+  message: MESSAGES[getRandomNumber(0, MESSAGES.length - 1)],
   name: `${NAMES[getRandomNumber(0, NAMES.length - 1)]} ${SURNAMES[getRandomNumber(0, SURNAMES.length - 1)]}`,
 });
 
@@ -65,7 +65,7 @@ const createPhoto = () => {
     descriptions.push({
       id: id,
       url: `photos/${id}.jpg`,
-      description: DESCRIPTION[getRandomNumber(0, DESCRIPTION.length - 1)],
+      description: DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length - 1)],
       likes: getRandomNumber(MIN_LIKES, MAX_LIKES),
       comments: similarComments.slice(getRandomNumber(0, similarComments.length - 1)),
     });
@@ -73,4 +73,4 @@ const createPhoto = () => {
   return descriptions;
 };
 
-export {createPhoto, createComment, DESCRIPTION};
+export { createPhoto, createComment };

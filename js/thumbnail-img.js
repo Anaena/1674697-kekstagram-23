@@ -26,4 +26,4 @@ const renderPictures = (pictures) => {
 
 renderPictures(similarPictures);
 
-export {similarPictures, similarPicturesFragment, renderPictures, otherUsersPicturesList };
+export { similarPictures, similarPicturesFragment, renderPictures, otherUsersPicturesList };
