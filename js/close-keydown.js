@@ -1,4 +1,4 @@
-import { closePictureModal} from './big-img.js';
+import { closePictureModal } from './big-img.js';
 import { closeUserModal } from './user-form.js';
 import { isEscEvent } from './utils.js';
 
@@ -9,9 +9,7 @@ const userCommentInput = document.querySelector('.social__footer-text');
 
 const onPopupEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
-    if (userDescription === document.activeElement) {
-      evt.stopPropagation();
-    } else if (userHashtags === document.activeElement) {
+    if (userDescription === document.activeElement || userHashtags === document.activeElement) {
       evt.stopPropagation();
     } else {
       closePictureModal();
