@@ -1,40 +1,34 @@
-const MAX_CONTROL_VALUE = 100;
-const MIN_CONTROL_VALUE = 25;
-const CARRENT_CONTROL_VALUE = 100;
+const CURRENT_CONTROL_VALUE = 100;
 const scaleControlValue = document.querySelector('.scale__control--value');
-const scaleControlSmaller = document.querySelector('.scale__control--smaller');
-const scaleControlBigger = document.querySelector('.scale__control--bigger');
+const scaleDownControl = document.querySelector('.scale__control--smaller');
+const scaleUpControl = document.querySelector('.scale__control--bigger');
 const picturePreview = document.querySelector('.img-upload__preview');
 
+const scaleDirection = {
+  up: 1,
+  down: -1,
+};
+
+const scaleThreshold = {
+  max: 100,
+  min: 25,
+};
 
 const setScale = (value) => {
   scaleControlValue.value = `${value}%`;
   picturePreview.style.transform = `scale(${value / 100})`;
 };
 
-const calculateScale = (value, button) => {
-  let newValue = Number(value.replace('%', ''));
-  if (button === 'up') {
-    newValue += 25;
+const changeScale = (direction) => {
+  const scale = Number(scaleControlValue.value.replace(/[^\d]/g, ''));
+  if (scale >= scaleThreshold.max && direction === scaleDirection.up
+   || scale <= scaleThreshold.min && direction === scaleDirection.down) {
+    return;
   }
-  if (button === 'down') {
-    newValue -= 25;
-  }
-  if (newValue > MAX_CONTROL_VALUE) {
-    newValue = MAX_CONTROL_VALUE;
-  }
-  if (newValue < MIN_CONTROL_VALUE) {
-    newValue = MIN_CONTROL_VALUE;
-  }
-  setScale(newValue);
+  setScale(scale  + 25 * direction);
 };
 
-scaleControlBigger.addEventListener('click', () => {
-  calculateScale(scaleControlValue.value, 'up');
-});
+scaleUpControl.addEventListener('click', () => changeScale(scaleDirection.up));
+scaleDownControl.addEventListener('click', () => changeScale(scaleDirection.down));
 
-scaleControlSmaller.addEventListener('click', () => {
-  calculateScale(scaleControlValue.value, 'down');
-});
-
-export { picturePreview, setScale, CARRENT_CONTROL_VALUE };
+export { picturePreview, setScale, CURRENT_CONTROL_VALUE };

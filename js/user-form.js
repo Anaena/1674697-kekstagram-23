@@ -1,7 +1,7 @@
 import { MAX_COMMENT_LENGTH } from './utils.js';
 import { pageBody } from './big-img.js';
 import { onPopupEscKeydown } from './close-keydown.js';
-import { setScale, CARRENT_CONTROL_VALUE } from './scale-control.js';
+import { setScale, CURRENT_CONTROL_VALUE } from './scale-control.js';
 
 const ERROE_TEXT_VALIDATE = `Хэштег начинается со знака "#" и включать в себя только буквы и цифры.
           Количетво символов после "#" более 19. Хэш-теги пишутся через пробел.`;
@@ -16,7 +16,7 @@ const hashtagReg = /^#[A-Za-zА-ЯЁёа-я0-9]{1,19}$/;
 
 const openUserModal = () => {
   userModalElement.classList.remove('hidden');
-  setScale(CARRENT_CONTROL_VALUE);
+  setScale(CURRENT_CONTROL_VALUE);
   pageBody.classList.add('modal-open');
   document.addEventListener('keydown', onPopupEscKeydown);
 };
