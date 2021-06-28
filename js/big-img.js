@@ -37,11 +37,11 @@ const renderComments = (commentList, { avatar, name, message }) => {
 };
 
 const getNextComments = () => {
-  console.log(currentComments, 'до');
+  // console.log(currentComments, 'до');
   currentComments = hiddenComments.slice(lastShownComment, lastShownComment + COMMENTS_STEP);
-  console.log(currentComments, 'после');
+  // console.log(currentComments, 'после');
   hiddenComments = hiddenComments.slice(COMMENTS_STEP - lastShownComment);
-  console.log(hiddenComments, 'срез');
+  // console.log(hiddenComments, 'срез');
 
   const comments = commentsList.children;
   const commentsCountLength = comments.length;
@@ -66,7 +66,7 @@ const openPictureModal = (picture) => {
   commentsLoaderButton.addEventListener('click', getNextComments);
   picture.comments.forEach((comment) => renderComments(commentsList, comment));
   lastShownComment = 0;
-  getNextComments();
+  getNextComments(currentComments);
 
   bigPicture.classList.remove('hidden');
   pageBody.classList.add('modal-open');
