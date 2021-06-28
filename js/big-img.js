@@ -37,12 +37,6 @@ const renderComments = (commentList, { avatar, name, message }) => {
 };
 
 const getNextComments = () => {
-  // console.log(currentComments, 'до');
-  currentComments = hiddenComments.slice(lastShownComment, lastShownComment + COMMENTS_STEP);
-  // console.log(currentComments, 'после');
-  hiddenComments = hiddenComments.slice(COMMENTS_STEP - lastShownComment);
-  // console.log(hiddenComments, 'срез');
-
   const comments = commentsList.children;
   const commentsCountLength = comments.length;
   let nextComment = COMMENTS_STEP;
@@ -62,11 +56,17 @@ const openPictureModal = (picture) => {
   commentsCount.textContent = picture.comments.length;
   pictureDescription.textContent = picture.description;
   commentsList.innerHTML = '';
-  hiddenComments = picture.comments;
-  commentsLoaderButton.addEventListener('click', getNextComments);
-  picture.comments.forEach((comment) => renderComments(commentsList, comment));
-  lastShownComment = 0;
-  getNextComments(currentComments);
+  let shownComment = 0;
+  let lastShownComment = shownComment + COMMENTS_STEP;
+  const countLength = picture.comments.length;
+  const pictureComment = picture.comments;
+  const slicedComment = pictureComment.slice(shownComment, lastShownComment);
+  pictureComment.slice(shownComment, lastShownComment).forEach((comment) => renderComments(commentsList, comment));
+  commentsLoaderButton.addEventListener('click', () => {
+    shownComment += COMMENTS_STEP;
+    lastShownComment += COMMENTS_STEP;
+    slicedComment.forEach((comment) => renderComments(commentsList, comment));
+  });
 
   bigPicture.classList.remove('hidden');
   pageBody.classList.add('modal-open');
