@@ -13,11 +13,9 @@ const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const commentsLoaderButton = bigPicture.querySelector('.comments-loader');
 const pageBody = document.querySelector('body');
 
-let currentComments = [];
-let hiddenComments = [];
 let lastShownComment = 0;
 
-const renderComments = (commentList, { avatar, name, message }) => {
+const renderComment = ({ avatar, name, message }) => {
   const commentBlock = document.createElement('li');
   const commentPicture = document.createElement('img');
   const commentText = document.createElement('p');
@@ -33,7 +31,7 @@ const renderComments = (commentList, { avatar, name, message }) => {
 
   commentBlock.appendChild(commentPicture);
   commentBlock.appendChild(commentText);
-  commentList.appendChild(commentBlock);
+  commentsList.appendChild(commentBlock);
 };
 
 const getNextComments = () => {
@@ -56,18 +54,16 @@ const openPictureModal = (picture) => {
   commentsCount.textContent = picture.comments.length;
   pictureDescription.textContent = picture.description;
   commentsList.innerHTML = '';
-  let shownComment = 0;
-  let lastShownComment = shownComment + COMMENTS_STEP;
-  const countLength = picture.comments.length;
-  const pictureComment = picture.comments;
-  const slicedComment = pictureComment.slice(shownComment, lastShownComment);
-  pictureComment.slice(shownComment, lastShownComment).forEach((comment) => renderComments(commentsList, comment));
+  const renderComments = (comments) => comments.forEach(renderComment);
+  const renderMoreComments = (comments) => {
+    const displayedCommentsCount = commentsList.querySelectorAll('.social__comment').length;
+    renderComments(comments.slice(displayedCommentsCount, displayedCommentsCount + COMMENTS_STEP));
+  };
+  renderMoreComments(picture.comments);
   commentsLoaderButton.addEventListener('click', () => {
-    shownComment += COMMENTS_STEP;
-    lastShownComment += COMMENTS_STEP;
-    slicedComment.forEach((comment) => renderComments(commentsList, comment));
+    renderMoreComments(picture.comments);
+    getNextComments();
   });
-
   bigPicture.classList.remove('hidden');
   pageBody.classList.add('modal-open');
   document.addEventListener('keydown', onPopupEscKeydown);
