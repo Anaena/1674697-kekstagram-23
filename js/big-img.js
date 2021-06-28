@@ -37,43 +37,24 @@ const renderComments = (commentList, { avatar, name, message }) => {
 };
 
 const getNextComments = () => {
+  console.log(currentComments, 'до');
+  currentComments = hiddenComments.slice(lastShownComment, lastShownComment + COMMENTS_STEP);
+  console.log(currentComments, 'после');
+  hiddenComments = hiddenComments.slice(COMMENTS_STEP - lastShownComment);
+  console.log(hiddenComments, 'срез');
+
   const comments = commentsList.children;
-  console.log(comments, 'comments');
-  const commentsCountLength = commentsList.children.length;
-  console.log(commentsCountLength, 'Length');
-
-  // console.log(currentComments, 'до');
-  // currentComments = commentsList.slice(0, 0 + 5);
-  // console.log(currentComments, 'после');
-  // hiddenComments = hiddenComments.slice(lastShownComment + 5);
-  // console.log(hiddenComments, 'срез');
-
+  const commentsCountLength = comments.length;
   let nextComment = COMMENTS_STEP;
   if (commentsCountLength > lastShownComment + COMMENTS_STEP) {
     nextComment = lastShownComment + COMMENTS_STEP;
   } else {
     nextComment = commentsCountLength;
-  };
-  console.log(nextComment, 'next');
+  }
   commentsLoaderButton.classList.toggle('hidden', commentsCountLength === nextComment);
   socialCommentCount.firstChild.textContent = `${nextComment} из `;
   lastShownComment = nextComment;
 };
-
-// console.log(currentComments, 'до');
-// const maxShownComment = hiddenComments;
-// currentComments = hiddenComments.slice(0, 0 + 5);
-// console.log(currentComments, 'после');
-// hiddenComments = hiddenComments.slice(lastShownComment + 5);
-// console.log(hiddenComments, 'срез');
-
-// lastShownComment += 5;
-// if (lastShownComment >= currentComments.length) {
-//   lastShownComment = maxShownComment.length;
-// }
-// currentComments.forEach((comment) => renderComments(commentsList, comment));
-// socialCommentCount.innerHTML = getCommentsCount(lastShownComment, maxShownComment.length);
-// console.log(maxShownComment.length);
 
 const openPictureModal = (picture) => {
   bigPictureImg.src = picture.url;
@@ -81,7 +62,7 @@ const openPictureModal = (picture) => {
   commentsCount.textContent = picture.comments.length;
   pictureDescription.textContent = picture.description;
   commentsList.innerHTML = '';
-  // hiddenComments = picture.comments;
+  hiddenComments = picture.comments;
   commentsLoaderButton.addEventListener('click', getNextComments);
   picture.comments.forEach((comment) => renderComments(commentsList, comment));
   lastShownComment = 0;
