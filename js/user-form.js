@@ -1,5 +1,4 @@
 import { MAX_COMMENT_LENGTH } from './utils.js';
-import { pageBody } from './big-img.js';
 import { onPopupEscKeydown } from './close-keydown.js';
 import { setScale, CURRENT_CONTROL_VALUE } from './scale-control.js';
 
@@ -17,13 +16,13 @@ const hashtagReg = /^#[A-Za-zА-ЯЁёа-я0-9]{1,19}$/;
 const openUserModal = () => {
   userModalElement.classList.remove('hidden');
   setScale(CURRENT_CONTROL_VALUE);
-  pageBody.classList.add('modal-open');
+  document.body.classList.add('modal-open');
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
 const closeUserModal = () => {
   userModalElement.classList.add('hidden');
-  pageBody.classList.remove('modal-open');
+  document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
