@@ -1,9 +1,9 @@
 import { picturePreview } from './scale-control.js';
+import { userForm } from './user-form.js';
 
 const NONE_EFFECT = 'none';
-const form = document.querySelector('.img-upload__form');
-const sliderElement = form.querySelector('.effect-level__slider');
-const sliderValue = form.querySelector('.effect-level__value');
+const sliderElement = userForm.querySelector('.effect-level__slider');
+const sliderValue = userForm.querySelector('.effect-level__value');
 let currentEffect;
 
 const effectNames = {
@@ -117,4 +117,4 @@ const filterChangeHandler = (evt) => {
   }
 };
 
-form.addEventListener('change', filterChangeHandler);
+userForm.addEventListener('change', filterChangeHandler);

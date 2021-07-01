@@ -1,10 +1,9 @@
 import { closePictureModal } from './big-img.js';
-import { closeUserModal } from './user-form.js';
+import { closeUserModal } from './user-modal.js';
+import { userHashtags, userDescription } from './user-form.js';
 import { isEscEvent } from './utils.js';
 
 const userModalOpenElement = document.querySelector('#upload-file');
-const userHashtags = document.querySelector('.text__hashtags');
-const userDescription = document.querySelector('.text__description');
 const userCommentInput = document.querySelector('.social__footer-text');
 
 const onPopupEscKeydown = (evt) => {
