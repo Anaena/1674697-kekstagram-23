@@ -25,4 +25,4 @@ userModalOpenElement.addEventListener('click', openUserModal);
 
 userModalCloseElement.addEventListener('click', closeUserModal);
 
-export { openUserModal, closeUserModal };
+export { openUserModal, closeUserModal, userModalElement };

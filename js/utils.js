@@ -25,7 +25,7 @@ const showAlert = (message) => {
   alertContainer.style.left = 0;
   alertContainer.style.top = 0;
   alertContainer.style.right = 0;
-  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.padding = '30px 10px';
   alertContainer.style.fontSize = '30px';
   alertContainer.style.textAlign = 'center';
   alertContainer.style.backgroundColor = 'red';
@@ -38,21 +38,5 @@ const showAlert = (message) => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
 };
-
-// const successTemplate = document.querySelector('#success').content.querySelector('.success');
-// const successMessage = document.createDocumentFragment();
-
-// const showSuccessMessage = (message) => {
-//   const successMessage = successTemplate.cloneNode(true);
-//   successMessage.querySelector('.success__title').src = message.url;
-//   successMessage.querySelector('.success__button').textContent = picture.comments.length;
-//   successMessage.addEventListener('click', () => {
-//     openPictureModal(picture);
-//   });
-//   similarPicturesFragment.appendChild(pictureElement);
-// });
-
-// otherUsersPicturesList.appendChild(similarPicturesFragment);
-// };
 
 export { checkСommentLength, getRandomNumber, isEscEvent, MAX_COMMENT_LENGTH, showAlert };

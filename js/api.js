@@ -3,16 +3,14 @@ const getData = (onSuccess, onFail) => {
     .then((response) => {
       if (response.ok) {
         return response.json();
-      } else {
-        onFail('Не удалось получить данные с сервера, произошла ошибка запроса. Попробуйте ещё раз.');
       }
+      throw new Error(`${response.status} — ${response.statusText}`);
     })
-    .then((response) => response.json())
     .then((pictures) => {
       onSuccess(pictures);
     })
     .catch(() => {
-      onFail('Не удалось получить данные с сервера, произошла ошибка запроса. Попробуйте ещё раз.');
+      onFail('Не удалось получить данные с сервера. Попробуйте ещё раз.');
     });
 };
 
@@ -28,11 +26,11 @@ const sendData = (onSuccess, onFail, body) => {
       if (response.ok) {
         onSuccess();
       } else {
-        onFail('Не удалось отправить форму. Попробуйте ещё раз');
+        onFail();
       }
     })
     .catch(() => {
-      onFail('Не удалось отправить форму. Попробуйте ещё раз');
+      onFail();
     });
 };
 
