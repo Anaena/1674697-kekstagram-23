@@ -1,7 +1,7 @@
 import { MAX_COMMENT_LENGTH } from './utils.js';
 import { sendData } from './api.js';
 import { showSuccessMessage, showErrorMessage } from './modal-messages.js';
-import { userModalElement } from './user-modal.js';
+import { closeModalElements } from './user-modal.js';
 
 const ERROE_TEXT_VALIDATE = `Хэштег начинается со знака "#" и включать в себя только буквы и цифры.
           Количетво символов после "#" более 19. Хэш-теги пишутся через пробел.`;
@@ -67,7 +67,7 @@ userHashtags.addEventListener('input', validationFormHashtag);
 const setUserFormSubmit = () => {
   userForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    userModalElement.classList.add('hidden');
+    closeModalElements();
     sendData(
       () => showSuccessMessage(),
       () => showErrorMessage(),

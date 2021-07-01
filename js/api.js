@@ -6,9 +6,7 @@ const getData = (onSuccess, onFail) => {
       }
       throw new Error(`${response.status} — ${response.statusText}`);
     })
-    .then((pictures) => {
-      onSuccess(pictures);
-    })
+    .then(onSuccess)
     .catch(() => {
       onFail('Не удалось получить данные с сервера. Попробуйте ещё раз.');
     });
@@ -24,10 +22,9 @@ const sendData = (onSuccess, onFail, body) => {
   )
     .then((response) => {
       if (response.ok) {
-        onSuccess();
-      } else {
-        onFail();
+        return onSuccess();
       }
+      throw new Error(`${response.status} — ${response.statusText}`);
     })
     .catch(() => {
       onFail();

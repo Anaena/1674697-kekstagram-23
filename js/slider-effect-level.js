@@ -4,6 +4,7 @@ import { userForm } from './user-form.js';
 const NONE_EFFECT = 'none';
 const sliderElement = userForm.querySelector('.effect-level__slider');
 const sliderValue = userForm.querySelector('.effect-level__value');
+const effectsList = userForm.querySelector('.effects__list');
 let currentEffect;
 
 const effectNames = {
@@ -117,4 +118,18 @@ const filterChangeHandler = (evt) => {
   }
 };
 
-userForm.addEventListener('change', filterChangeHandler);
+const onEffects = () => {
+  currentEffect = NONE_EFFECT;
+  picturePreview.classList.add('img-upload__preview');
+  picturePreview.classList.add(`effects__preview--${currentEffect}`);
+  effectsList.addEventListener('change', filterChangeHandler);
+};
+
+const offEffects = () => {
+  destroyEffectLevel();
+  picturePreview.classList.remove('img-upload__preview');
+  picturePreview.classList.remove(`effects__preview--${currentEffect}`);
+  effectsList.removeEventListener('change', filterChangeHandler);
+};
+
+export { onEffects, offEffects, filterChangeHandler };

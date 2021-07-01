@@ -1,6 +1,7 @@
 import { closePictureModal } from './big-img.js';
 import { closeUserModal } from './user-modal.js';
 import { userHashtags, userDescription } from './user-form.js';
+import { hideModalMessage} from './modal-messages.js';
 import { isEscEvent } from './utils.js';
 
 const userModalOpenElement = document.querySelector('#upload-file');
@@ -19,4 +20,11 @@ const onPopupEscKeydown = (evt) => {
   }
 };
 
-export { onPopupEscKeydown };
+const onMessageKeydown = (evt) => {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    hideModalMessage();
+  }
+};
+
+export { onPopupEscKeydown, onMessageKeydown };

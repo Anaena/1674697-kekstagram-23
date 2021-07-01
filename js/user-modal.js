@@ -1,23 +1,35 @@
 import { onPopupEscKeydown } from './close-keydown.js';
-import { setScale, CURRENT_CONTROL_VALUE } from './scale-control.js';
+import { onScale, offScale } from './scale-control.js';
+import { onEffects, offEffects } from './slider-effect-level.js';
 import { userHashtags, userDescription } from './user-form.js';
 
 const userModalOpenElement = document.querySelector('#upload-file');
 const userModalCloseElement = document.querySelector('#upload-cancel');
 const userModalElement = document.querySelector('.img-upload__overlay');
 
-const openUserModal = () => {
+const openModalElements = () => {
   userModalElement.classList.remove('hidden');
-  setScale(CURRENT_CONTROL_VALUE);
+  onScale();
+  onEffects();
+};
+
+const closeModalElements = () => {
+  userModalElement.classList.add('hidden');
+  offScale();
+  offEffects();
+};
+
+const openUserModal = () => {
+  openModalElements();
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
 const closeUserModal = () => {
-  userModalElement.classList.add('hidden');
-  document.body.classList.remove('modal-open');
+  closeModalElements();
   userDescription.value = '';
   userHashtags.value = '';
+  document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
@@ -25,4 +37,4 @@ userModalOpenElement.addEventListener('click', openUserModal);
 
 userModalCloseElement.addEventListener('click', closeUserModal);
 
-export { openUserModal, closeUserModal, userModalElement };
+export { openUserModal, closeUserModal, userModalElement, openModalElements, closeModalElements };
