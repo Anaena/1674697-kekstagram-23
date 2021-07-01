@@ -1,6 +1,6 @@
 import { closePictureModal } from './big-img.js';
 import { closeUserModal } from './user-modal.js';
-import { userHashtags, userDescription } from './user-form.js';
+import { userHashtags, userDescription, userForm } from './user-form.js';
 import { hideModalMessage} from './modal-messages.js';
 import { isEscEvent } from './utils.js';
 
@@ -14,6 +14,7 @@ const onPopupEscKeydown = (evt) => {
     } else {
       closePictureModal();
       closeUserModal();
+      userForm.reset();
       userCommentInput.value = '';
       userModalOpenElement.value = '';
     }

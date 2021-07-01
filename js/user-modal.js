@@ -1,7 +1,7 @@
 import { onPopupEscKeydown } from './close-keydown.js';
 import { onScale, offScale } from './scale-control.js';
 import { onEffects, offEffects } from './slider-effect-level.js';
-import { userHashtags, userDescription } from './user-form.js';
+import { userHashtags, userDescription, userForm } from './user-form.js';
 
 const userModalOpenElement = document.querySelector('#upload-file');
 const userModalCloseElement = document.querySelector('#upload-cancel');
@@ -29,6 +29,7 @@ const closeUserModal = () => {
   closeModalElements();
   userDescription.value = '';
   userHashtags.value = '';
+  userForm.reset();
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onPopupEscKeydown);
 };

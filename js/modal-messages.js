@@ -3,8 +3,12 @@ import { onMessageKeydown } from './close-keydown.js';
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
-const hideModalMessage = (message) => {
-  message.remove();
+let successMessage = undefined;
+let errorMessage = undefined;
+
+const hideModalMessage = () => {
+  successMessage.remove();
+  errorMessage.remove();
   document.removeEventListener('keydown', onMessageKeydown);
 };
 
@@ -21,12 +25,12 @@ const showModalMessage = () => {
 
 
 const showSuccessMessage = () => {
-  const successMessage = successTemplate.cloneNode(true);
+  successMessage = successTemplate.cloneNode(true);
   const successMessageBox = successMessage.querySelector('.success__inner');
   const successButton = successMessage.querySelector('.success__button');
   showModalMessage();
   successButton.addEventListener('click', () => {
-    hideModalMessage(successMessage);
+    hideModalMessage();
   });
   successMessageBox.addEventListener('click', () => {
     onMessageAreaClick();
@@ -36,10 +40,10 @@ const showSuccessMessage = () => {
 };
 
 const showErrorMessage = () => {
-  const errorMessage = errorTemplate.cloneNode(true);
+  errorMessage = errorTemplate.cloneNode(true);
   const errorMessageBox = errorMessage.querySelector('.error__inner');
   const errorButton = errorMessage.querySelector('.error__button');
-  showModalMessage();
+  showModalMessage(errorMessage);
   errorButton.addEventListener('click', () => {
     hideModalMessage(errorMessage);
   });
@@ -49,11 +53,5 @@ const showErrorMessage = () => {
 
   document.body.appendChild(errorMessage);
 };
-
-// document.addEventListener('mousedown', function (e) {
-//   if (e.target.closest('.popup') === null) {
-//     popup.style.display = 'none';
-//   }
-// });
 
 export { showSuccessMessage, showErrorMessage, hideModalMessage };
