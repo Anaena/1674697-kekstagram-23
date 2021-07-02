@@ -23,7 +23,6 @@ const showModalMessage = () => {
   document.addEventListener('keydown', onMessageKeydown);
 };
 
-
 const showSuccessMessage = () => {
   successMessage = successTemplate.cloneNode(true);
   const successMessageBox = successMessage.querySelector('.success__inner');
@@ -32,9 +31,7 @@ const showSuccessMessage = () => {
   successButton.addEventListener('click', () => {
     hideModalMessage();
   });
-  successMessageBox.addEventListener('click', () => {
-    onMessageAreaClick();
-  });
+  successMessageBox.addEventListener('click', onMessageAreaClick);
 
   document.body.appendChild(successMessage);
 };
@@ -43,13 +40,11 @@ const showErrorMessage = () => {
   errorMessage = errorTemplate.cloneNode(true);
   const errorMessageBox = errorMessage.querySelector('.error__inner');
   const errorButton = errorMessage.querySelector('.error__button');
-  showModalMessage(errorMessage);
+  showModalMessage();
   errorButton.addEventListener('click', () => {
-    hideModalMessage(errorMessage);
+    hideModalMessage();
   });
-  errorMessageBox.addEventListener('click', () => {
-    onMessageAreaClick();
-  });
+  errorMessageBox.addEventListener('click', onMessageAreaClick);
 
   document.body.appendChild(errorMessage);
 };
