@@ -67,10 +67,10 @@ userHashtags.addEventListener('input', validationFormHashtag);
 const setUserFormSubmit = () => {
   userForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    closeModalElements();
+    closeModalElements ();
     sendData(
-      () => showSuccessMessage(),
-      () => showErrorMessage(),
+      showSuccessMessage,
+      showErrorMessage,
       new FormData(evt.target),
     );
   });

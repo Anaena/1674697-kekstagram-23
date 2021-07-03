@@ -1,5 +1,5 @@
 import { onPopupEscKeydown } from './close-keydown.js';
-import { onScale, offScale } from './scale-control.js';
+import { setScale, CURRENT_CONTROL_VALUE } from './scale-control.js';
 import { onEffects, offEffects } from './slider-effect-level.js';
 import { userHashtags, userDescription, userForm } from './user-form.js';
 
@@ -9,18 +9,17 @@ const userModalElement = document.querySelector('.img-upload__overlay');
 
 const openModalElements = () => {
   userModalElement.classList.remove('hidden');
-  onScale();
   onEffects();
 };
 
 const closeModalElements = () => {
   userModalElement.classList.add('hidden');
-  offScale();
   offEffects();
 };
 
 const openUserModal = () => {
   openModalElements();
+  setScale(CURRENT_CONTROL_VALUE);
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onPopupEscKeydown);
 };

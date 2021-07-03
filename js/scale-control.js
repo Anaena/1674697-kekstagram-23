@@ -28,16 +28,7 @@ const changeScale = (direction) => {
   setScale(scale  + 25 * direction);
 };
 
-const onScale = () => {
-  setScale(CURRENT_CONTROL_VALUE);
+scaleUpControl.addEventListener('click', () => changeScale(scaleDirection.up));
+scaleDownControl.addEventListener('click', () => changeScale(scaleDirection.down));
 
-  scaleUpControl.addEventListener('click', () => changeScale(scaleDirection.up));
-  scaleDownControl.addEventListener('click', () => changeScale(scaleDirection.down));
-};
-
-const offScale = () => {
-  scaleUpControl.removeEventListener('click', changeScale(scaleDirection.up));
-  scaleDownControl.removeEventListener('click', changeScale(scaleDirection.down));
-};
-
-export { picturePreview, setScale, CURRENT_CONTROL_VALUE, onScale, offScale };
+export { picturePreview, setScale, CURRENT_CONTROL_VALUE };
