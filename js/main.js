@@ -9,10 +9,10 @@ import { closeUserModal } from './user-modal.js';
 import { showAlert } from './utils.js';
 import { getData } from './api.js';
 
-const dataPromise = getData();
+const dataPromise = getData(() => showAlert('Не удалось получить данные с сервера. Попробуйте ещё раз.'));
 
-dataPromise.then(renderPictures);
-dataPromise.catch(showAlert);
+dataPromise
+  .then(renderPictures);
 // dataPromise.then(someFunctionUsingPicturesData);
 
 setUserFormSubmit(closeUserModal);

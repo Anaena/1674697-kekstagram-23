@@ -1,14 +1,13 @@
 const URL_GET_DATA = 'https://23.javascript.pages.academy/kekstagram/data';
 const URL_SEND_DATA = 'https://23.javascript.pages.academy/kekstagram';
 
-const getData = (onSuccess, onFail) => fetch(URL_GET_DATA)
+const getData = (onFail) => fetch(URL_GET_DATA)
   .then((response) => {
     if (response.ok) {
       return response.json();
     }
     throw new Error(`${response.status} — ${response.statusText}`);
   })
-  .then(onSuccess)
   .catch(onFail);
 
 const sendData = (onSuccess, onFail, body) => {
@@ -24,9 +23,7 @@ const sendData = (onSuccess, onFail, body) => {
       }
       throw new Error(`${response.status} — ${response.statusText}`);
     })
-    .catch(() => {
-      onFail();
-    });
+    .catch(onFail);
 };
 
 export { getData, sendData };
