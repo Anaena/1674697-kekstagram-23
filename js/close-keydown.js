@@ -1,10 +1,10 @@
 import { closePictureModal } from './big-img.js';
-import { closeUserModal } from './user-form.js';
+import { closeUserModal } from './user-modal.js';
+import { userHashtags, userDescription, userForm } from './user-form.js';
+import { hideModalMessage} from './modal-messages.js';
 import { isEscEvent } from './utils.js';
 
 const userModalOpenElement = document.querySelector('#upload-file');
-const userHashtags = document.querySelector('.text__hashtags');
-const userDescription = document.querySelector('.text__description');
 const userCommentInput = document.querySelector('.social__footer-text');
 
 const onPopupEscKeydown = (evt) => {
@@ -14,10 +14,18 @@ const onPopupEscKeydown = (evt) => {
     } else {
       closePictureModal();
       closeUserModal();
+      userForm.reset();
       userCommentInput.value = '';
       userModalOpenElement.value = '';
     }
   }
 };
 
-export { onPopupEscKeydown };
+const onMessageKeydown = (evt) => {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    hideModalMessage();
+  }
+};
+
+export { onPopupEscKeydown, onMessageKeydown };

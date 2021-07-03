@@ -1,12 +1,7 @@
-import { createPhoto } from './data.js';
 import { openPictureModal } from './big-img.js';
 
 const otherUsersPicturesList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-
-
-const similarPictures = createPhoto();
-
 const similarPicturesFragment = document.createDocumentFragment();
 
 const renderPictures = (pictures) => {
@@ -24,6 +19,4 @@ const renderPictures = (pictures) => {
   otherUsersPicturesList.appendChild(similarPicturesFragment);
 };
 
-renderPictures(similarPictures);
-
-export { similarPictures, similarPicturesFragment, renderPictures, otherUsersPicturesList };
+export { similarPicturesFragment, renderPictures, otherUsersPicturesList };
