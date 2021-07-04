@@ -1,8 +1,8 @@
 import { renderPictures } from './thumbnail-img.js';
-import { shuffle } from './utils.js';
+import { shuffle, debounce } from './utils.js';
 
 const NUMBER_RANDOM_PICTURES = 10;
-// const RERENDER_DELAY = 500;
+const RERENDER_DELAY = 500;
 
 const imgFilters = document.querySelector('.img-filters');
 const picturesList = document.querySelector('.pictures');
@@ -41,22 +41,24 @@ const getDiscussedPictures = (pictures) => {
   return discussedPictures.reverse();
 };
 
-const changeFilters = (pictures) => {
+const setFilter = (evt, pictures) => {
   clearPhotos();
-  filterDefault.addEventListener('click', () => {
-    setFiltersActive(filterDefault);
-    renderPictures(getDefaultPictures(pictures));
-  });
+  const filterButtonElement = evt.target.closest('.img-filters__button');
+  setFiltersActive(filterButtonElement);
+  const filterAction = {
+    'filter-default': getDefaultPictures,
+    'filter-random': getRandomPictures,
+    'filter-discussed': getDiscussedPictures,
+  }[filterButtonElement.id];
+  renderPictures(filterAction(pictures));
+};
 
-  filterRandom.addEventListener('click', () => {
-    setFiltersActive(filterRandom);
-    renderPictures(getRandomPictures(pictures));
-  });
+const setFilterDebounced = debounce(setFilter, RERENDER_DELAY);
 
-  filterDiscussed.addEventListener('click', () => {
-    setFiltersActive(filterDiscussed);
-    renderPictures(getDiscussedPictures(pictures));
-  });
+const changeFilters = (pictures) => {
+  filterDefault.addEventListener('click', (evt) => setFilterDebounced(evt, pictures));
+  filterRandom.addEventListener('click', (evt) => setFilterDebounced(evt, pictures));
+  filterDiscussed.addEventListener('click', (evt) => setFilterDebounced(evt, pictures));
 };
 
 const showFilters = () => {
