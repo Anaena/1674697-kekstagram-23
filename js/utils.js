@@ -8,7 +8,8 @@ checkСommentLength('textarea', MAX_COMMENT_LENGTH);
 
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
-// пример функции взят с https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+// Функция для случайного числа
+// Источник https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomNumber(min, max) {
   if (min >= 0 && min < max) {
     min = Math.ceil(min);
@@ -39,4 +40,29 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export { checkСommentLength, getRandomNumber, isEscEvent, MAX_COMMENT_LENGTH, showAlert };
+// Функция взята из интернета и доработана
+// Источник - https://www.freecodecamp.org/news/javascript-debounce-example
+
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+// Перемешивание массива
+// Источник - https://learn.javascript.ru/task/sort-by-field
+
+const shuffle = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
+
+export { checkСommentLength, getRandomNumber, isEscEvent, MAX_COMMENT_LENGTH, showAlert, debounce, shuffle };

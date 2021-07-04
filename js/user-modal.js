@@ -14,6 +14,7 @@ const openModalElements = () => {
 
 const closeModalElements = () => {
   userModalElement.classList.add('hidden');
+  document.body.classList.remove('modal-open');
   offEffects();
 };
 
@@ -29,7 +30,6 @@ const closeUserModal = () => {
   userDescription.value = '';
   userHashtags.value = '';
   userForm.reset();
-  document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
