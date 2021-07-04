@@ -68,8 +68,6 @@ const closePictureModal = () => {
 
 pictureCloseElement.addEventListener('click', closePictureModal);
 
-commentsLoaderButton.addEventListener('click', () => {
-  renderMoreComments();
-});
+commentsLoaderButton.addEventListener('click', renderMoreComments);
 
-export { pictureCloseElement, openPictureModal, closePictureModal };
+export { pictureCloseElement, openPictureModal, closePictureModal, renderMoreComments };
