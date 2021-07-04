@@ -5,7 +5,7 @@ import './scale-control.js';
 import './slider-effect-level.js';
 import './user-form.js';
 import { getData } from './api.js';
-import { showFilters } from './filters.js';
+import { showFilters, changeFilters } from './filters.js';
 import { renderPictures } from './thumbnail-img.js';
 import { setUserFormSubmit } from './user-form.js';
 import { closeUserModal } from './user-modal.js';
@@ -17,6 +17,7 @@ dataPromise
   .then((data) => {
     renderPictures(data);
     showFilters();
+    changeFilters(data);
   });
 
 setUserFormSubmit(closeUserModal);
