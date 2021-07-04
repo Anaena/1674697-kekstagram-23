@@ -3,6 +3,7 @@ import './big-img.js';
 import './filters.js';
 import './scale-control.js';
 import './slider-effect-level.js';
+import './upload-picture.js';
 import './user-form.js';
 import { getData } from './api.js';
 import { showFilters, changeFilters } from './filters.js';
