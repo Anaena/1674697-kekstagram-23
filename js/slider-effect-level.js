@@ -106,7 +106,7 @@ const destroyEffectLevel = () => {
   picturePreview.style.filter = '';
 };
 
-const filterChangeHandler = (evt) => {
+const onFilterChange = (evt) => {
   currentEffect = evt.target.value;
   if (evt.target.matches('.effects__radio')) {
     picturePreview.classList = `img-upload__preview effects__preview--${evt.target.value}`;
@@ -122,14 +122,14 @@ const onEffects = () => {
   currentEffect = NONE_EFFECT;
   picturePreview.classList.add('img-upload__preview');
   picturePreview.classList.add(`effects__preview--${currentEffect}`);
-  userForm.addEventListener('change', filterChangeHandler);
+  userForm.addEventListener('change', onFilterChange);
 };
 
 const offEffects = () => {
   destroyEffectLevel();
   picturePreview.classList.remove('img-upload__preview');
   picturePreview.classList.remove(`effects__preview--${currentEffect}`);
-  userForm.removeEventListener('change', filterChangeHandler);
+  userForm.removeEventListener('change', onFilterChange);
 };
 
-export { onEffects, offEffects, filterChangeHandler };
+export { onEffects, offEffects, onFilterChange };

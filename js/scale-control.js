@@ -1,8 +1,9 @@
+import { picturePreview } from './upload-picture.js';
+
 const CURRENT_CONTROL_VALUE = 100;
 const scaleControlValue = document.querySelector('.scale__control--value');
 const scaleDownControl = document.querySelector('.scale__control--smaller');
 const scaleUpControl = document.querySelector('.scale__control--bigger');
-const picturePreview = document.querySelector('.img-upload__preview');
 
 const scaleDirection = {
   up: 1,

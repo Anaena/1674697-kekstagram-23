@@ -4,10 +4,10 @@ import { userForm } from './user-form.js';
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
-const hideModalMessage = () => {
+const onModalMessageHide = () => {
   document.querySelectorAll('.success, .error').forEach((messageElement) => messageElement.remove());
   userForm.reset();
-  document.removeEventListener('click', hideModalMessage);
+  document.removeEventListener('click', onModalMessageHide);
   document.removeEventListener('keydown', onMessageKeydown);
 };
 
@@ -16,7 +16,7 @@ const onMessageAreaClick = (evt) => {
 };
 
 const showModalMessage = () => {
-  document.addEventListener('click', hideModalMessage);
+  document.addEventListener('click', onModalMessageHide);
   document.addEventListener('keydown', onMessageKeydown);
 };
 
@@ -25,7 +25,7 @@ const showSuccessMessage = () => {
   const successMessageBox = successMessage.querySelector('.success__inner');
   const successButton = successMessage.querySelector('.success__button');
   showModalMessage();
-  successButton.addEventListener('click', hideModalMessage);
+  successButton.addEventListener('click', onModalMessageHide);
   successMessageBox.addEventListener('click', onMessageAreaClick);
 
   document.body.appendChild(successMessage);
@@ -36,10 +36,10 @@ const showErrorMessage = () => {
   const errorMessageBox = errorMessage.querySelector('.error__inner');
   const errorButton = errorMessage.querySelector('.error__button');
   showModalMessage();
-  errorButton.addEventListener('click', hideModalMessage);
+  errorButton.addEventListener('click', onModalMessageHide);
   errorMessageBox.addEventListener('click', onMessageAreaClick);
 
   document.body.appendChild(errorMessage);
 };
 
-export { showSuccessMessage, showErrorMessage, hideModalMessage };
+export { showSuccessMessage, showErrorMessage, onModalMessageHide };

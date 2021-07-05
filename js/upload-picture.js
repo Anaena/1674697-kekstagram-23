@@ -1,7 +1,7 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const fileChooser = document.querySelector('.img-upload__input');
-const preview = document.querySelector('.img-upload__preview img');
+const picturePreview = document.querySelector('.img-upload__preview img');
 
 fileChooser.addEventListener('change', () => {
   const file = fileChooser.files[0];
@@ -12,8 +12,10 @@ fileChooser.addEventListener('change', () => {
     const reader = new FileReader();
 
     reader.addEventListener('load', () => {
-      preview.src = reader.result;
+      picturePreview.src = reader.result;
     });
     reader.readAsDataURL(file);
   }
 });
+
+export { picturePreview };

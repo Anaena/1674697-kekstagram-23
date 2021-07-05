@@ -35,7 +35,7 @@ const setElementError = (element, errorMessage) => {
   element.setCustomValidity(errorMessage);
 };
 
-const validationFormHashtag = (evt) => {
+const onHashtagValidate = (evt) => {
   const hashtagsValue = userHashtags.value.toLowerCase().trim();
   if (hashtagsValue !== '') {
     const hashtags = hashtagsValue.split(' ');
@@ -62,7 +62,7 @@ const validationFormHashtag = (evt) => {
   }
 };
 
-userHashtags.addEventListener('input', validationFormHashtag);
+userHashtags.addEventListener('input', onHashtagValidate);
 
 const setUserFormSubmit = () => {
   userForm.addEventListener('submit', (evt) => {

@@ -59,15 +59,15 @@ const openPictureModal = (picture) => {
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
-const closePictureModal = () => {
+const onPictureModalClose = () => {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
-pictureCloseElement.addEventListener('click', closePictureModal);
+pictureCloseElement.addEventListener('click', onPictureModalClose);
 
 commentsLoaderButton.addEventListener('click', renderMoreComments);
 
-export { pictureCloseElement, openPictureModal, closePictureModal, renderMoreComments };
+export { pictureCloseElement, openPictureModal, onPictureModalClose, renderMoreComments };

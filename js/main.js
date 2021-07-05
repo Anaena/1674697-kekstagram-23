@@ -9,7 +9,7 @@ import { getData } from './api.js';
 import { showFilters, changeFilters } from './filters.js';
 import { renderPictures } from './thumbnail-img.js';
 import { setUserFormSubmit } from './user-form.js';
-import { closeUserModal } from './user-modal.js';
+import { onUserModalClose } from './user-modal.js';
 import { showAlert } from './utils.js';
 
 const dataPromise = getData(() => showAlert('Не удалось получить данные с сервера. Попробуйте ещё раз.'));
@@ -21,6 +21,6 @@ dataPromise
     changeFilters(data);
   });
 
-setUserFormSubmit(closeUserModal);
+setUserFormSubmit(onUserModalClose);
 
 export { dataPromise };

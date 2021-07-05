@@ -18,14 +18,14 @@ const closeModalElements = () => {
   offEffects();
 };
 
-const openUserModal = () => {
+const onUserModalOpen = () => {
   openModalElements();
   setScale(CURRENT_CONTROL_VALUE);
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
-const closeUserModal = () => {
+const onUserModalClose = () => {
   closeModalElements();
   userDescription.value = '';
   userHashtags.value = '';
@@ -33,8 +33,8 @@ const closeUserModal = () => {
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
-userModalOpenElement.addEventListener('click', openUserModal);
+userModalOpenElement.addEventListener('change', onUserModalOpen);
 
-userModalCloseElement.addEventListener('click', closeUserModal);
+userModalCloseElement.addEventListener('click', onUserModalClose);
 
-export { openUserModal, closeUserModal, userModalElement, openModalElements, closeModalElements };
+export { onUserModalOpen, onUserModalClose, userModalElement, openModalElements, closeModalElements };
