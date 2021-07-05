@@ -56,13 +56,13 @@ const debounce = (callback, timeoutDelay = 500) => {
 // Перемешивание массива
 // Источник - https://learn.javascript.ru/task/sort-by-field
 
-const shuffle = (arrays) => {
-  for (let i = arrays.length - 1; i > 0; i--) {
+const shuffle = (pictures) => {
+  for (let i = pictures.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
 
-    [arrays[i], arrays[j]] = [arrays[j], arrays[i]];
+    [pictures[i], pictures[j]] = [pictures[j], pictures[i]];
   }
-  return arrays;
+  return pictures;
 };
 
 export { checkСommentLength, getRandomNumber, isEscEvent, MAX_COMMENT_LENGTH, showAlert, debounce, shuffle };
